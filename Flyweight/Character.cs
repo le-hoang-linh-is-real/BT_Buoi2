@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Flyweight
+﻿namespace Flyweight.RealWorld
 {
     public abstract class Character
     {
@@ -14,6 +8,7 @@ namespace Flyweight
         protected int ascent;
         protected int descent;
         protected int pointSize;
+
         public abstract void Display(int pointSize);
     }
 }

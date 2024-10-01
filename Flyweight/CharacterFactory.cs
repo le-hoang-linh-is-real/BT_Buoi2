@@ -1,49 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Flyweight
+namespace Flyweight.RealWorld
 {
-        public class CharacterFactory
+    public class CharacterFactory
     {
         private Dictionary<char, Character> characters = new Dictionary<char, Character>();
+
         public Character GetCharacter(char key)
         {
             // Uses "lazy initialization"
-            Character character = null;
-            if (characters.ContainsKey(key))
+            if (!characters.ContainsKey(key))
             {
-                character = characters[key];
-            }
-            else
-            {
-                switch (key)
+                Character character = key switch
                 {
-                    case 'A': character = new CharacterA(); break;
-                    case 'B': character = new CharacterB(); break;
-                    //...
-                    case 'Z': character = new CharacterZ(); break;
+                    'A' => new CharacterA(),
+                    'B' => new CharacterB(),
+                    // Add other characters as needed
+                    'Z' => new CharacterZ(),
+                    _ => null
+                };
+
+                if (character != null)
+                {
+                    characters.Add(key, character);
                 }
-                characters.Add(key, character);
             }
-            return character;
+
+            return characters[key];
         }
     }
-    /// <summary>
-    /// The 'Flyweight' abstract class
-    /// </summary>
-    public abstract class Character
-    {
-        protected char symbol;
-        protected int width;
-        protected int height;
-        protected int ascent;
-        protected int descent;
-        protected int pointSize;
-        public abstract void Display(int pointSize);
-    }
-
-}
 }
